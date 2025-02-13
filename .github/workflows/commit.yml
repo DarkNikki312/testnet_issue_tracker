@@ -1,0 +1,24 @@
+name: Daily Commit
+
+on:
+  schedule:
+    - cron: '0 0 * * *' 
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout репозитория
+        uses: actions/checkout@v3
+
+      - name: Делаем коммит
+        run: |
+          date > last_update.txt
+          git config --global user.email "akarpenko1885@hmail.com"
+          git config --global user.name "DarkNikki312"
+          git add .
+          git commit -m "Авто-коммит: $(date)"
+          git push
